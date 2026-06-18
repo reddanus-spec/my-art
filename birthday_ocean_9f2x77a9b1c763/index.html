@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Ocean</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #000000; /* Sleek black background */
+            display: flex;
+            flex-direction: column; /* Stacks items vertically */
+            align-items: center;
+            gap: 40px; /* Space between image and video */
+            padding: 40px 0;
+            overflow-y: auto; /* Allows scrolling down */
+        }
+        img, video {
+            max-width: 90%;
+            max-height: 85vh; /* Stops them from being too huge on mobile screens */
+            object-fit: contain;
+            border-radius: 12px; /* Smooth rounded corners */
+            box-shadow: 0 10px 30px rgba(255,255,255,0.05); /* Subtle glowing edge */
+        }
+    </style>
+</head>
+<body>
+
+    <img src="Birthday_ocean.JPEG" alt="Birthday Ocean Painting">
+
+    <video src="artwork_video.mp4" autoplay loop muted playsinline controls></video>
+
+</body>
+</html>
