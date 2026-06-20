@@ -14,11 +14,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Fix: Allows natural mobile scrolling/scrollbars when zoomed in */
-            overflow: auto; 
+            overflow: auto; /* Allows scrolling when zoomed in */
         }
 
-        /* Fix: CSS Grid stacks elements safely without breaking mobile zoom */
+        /* Stacks elements safely using CSS Grid */
         .image-container {
             display: grid;
             grid-template-areas: "stack";
@@ -28,28 +27,17 @@
             align-items: center;
         }
 
-        /* Both images occupy the exact same grid space, locking them together */
         img {
             grid-area: stack;
             max-width: 100%;
             max-height: 100%;
             object-fit: contain; 
+            pointer-events: none; /* Prevents accidental image-dragging on mobile */
         }
 
-        /* Applies the 5-second flashing animation */
         .outline-layer {
-            animation: flashEffect 5s infinite ease-in-out;
-            transform: translateZ(0); /* Light hardware acceleration */
-        }
-
-        /* Smoothly fades the opacity from 100% to 0% and back */
-        @keyframes flashEffect {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
+            /* Animation is now controlled by JavaScript below */
+            opacity: 1; 
         }
     </style>
 </head>
@@ -58,8 +46,26 @@
     <div class="image-container">
         <img src="birthday_ocean.jpg" alt="Birthday Ocean Background">
         
-        <img class="outline-layer" src="birthday_creatures.png" alt="Birthday Creatures Outlines">
+        <img id="outlineImage" class="outline-layer" src="birthday_creatures.png" alt="Birthday Creatures Outlines">
     </div>
+
+    <script>
+        const outline = document.getElementById('outlineImage');
+        const animationDuration = 5000; // 5 seconds total loop
+
+        function flashLoop(timestamp) {
+            // Math.cos creates a perfect, smooth ease-in-out fade cycle
+            const opacity = (Math.cos((timestamp / animationDuration) * 2 * Math.PI) + 1) / 2;
+            
+            outline.style.opacity = opacity;
+            
+            // Keeps the loop running continuously
+            requestAnimationFrame(flashLoop);
+        }
+
+        // Start the animation
+        requestAnimationFrame(flashLoop);
+    </script>
 
 </body>
 </html>
