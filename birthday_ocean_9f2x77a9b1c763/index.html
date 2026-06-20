@@ -38,15 +38,22 @@
         /* Applies the 5-second flashing animation to the top outline image */
         .outline-layer {
             animation: flashEffect 5s infinite ease-in-out;
+            
+            /* --- MOBILE ZOOM FIXES --- */
+            will-change: opacity, transform;       /* Tells browser to prepare the GPU */
+            transform: translate3d(0, 0, 0);       /* Forces hardware acceleration */
+            backface-visibility: hidden;           /* Prevents mobile rendering glitches */
         }
 
-        /* The animation timeline: Starts visible, fades out at 2.5s, fades back in at 5s */
+        /* The animation timeline: Includes a steady 3D transform scale to keep the GPU active during zooming */
         @keyframes flashEffect {
             0%, 100% {
                 opacity: 1;
+                transform: translate3d(0, 0, 0) scale(1);
             }
             50% {
                 opacity: 0;
+                transform: translate3d(0, 0, 0) scale(1);
             }
         }
     </style>
